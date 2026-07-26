@@ -1,0 +1,15 @@
+name: ci
+
+on: push
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # This repository is prose and links, so those are what can go wrong:
+      # a dash the project does not use, or a link to a repository the
+      # organization does not have.
+      - name: check the prose and the links
+        run: python3 tools/check.py
