@@ -8,7 +8,7 @@ The first target is ICAO Doc 9303 (Machine Readable Travel Documents): ePassport
 
 A document proves its way through a chain of small circuits: the country signing key certified the Document Signer, that signer signed the Security Object, the Security Object commits to a data group, that data group parses into committed fields, and statements are made about single fields without revealing the rest. Proofs are linked by equalities between their public values, and one verifier enforces that checklist so integrations do not carry their own copy.
 
-Eleven circuits exist and run end to end against generated documents. A proof over one verifies, and verification fails when the session context, the application domain or an output is changed.
+Seventeen circuits exist and run end to end against generated documents, including recursive aggregation: a registration proof that carries the whole document chain, and a session proof that carries a pair of predicates. A reference registry contract verifies both real proof kinds under test with measured gas. Verification fails when the session context, the application domain, an output or an inner proof is changed.
 
 ## Status
 
@@ -18,6 +18,7 @@ Early development. Names, layouts and binding formats can still change. Chip aut
 |---|---|
 | [circuits](https://github.com/zkICAO/circuits) | Noir circuits, shared libraries, and the fixture generator |
 | [prover](https://github.com/zkICAO/prover) | off-chain verification of a bundle of proofs |
+| [contracts](https://github.com/zkICAO/contracts) | reference on chain registry and generated Solidity verifiers |
 | [docs](https://github.com/zkICAO/docs) | protocol specification and threat model |
 
 ## Approach
