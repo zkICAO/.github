@@ -1,6 +1,6 @@
 # zkICAO
 
-Zero-knowledge circuits and tooling for electronic identity documents, built on Noir and UltraHonk.
+Zero-knowledge circuits and tooling for electronic identity documents, built on Noir and UltraHonk, with a Groth16 mirror of the predicate layer for verifiers that live on chain.
 
 The first target is ICAO Doc 9303 (Machine Readable Travel Documents): ePassports and national eID cards carrying a contactless chip, across issuing states. Doc 9303 makes the machine readable zone in DG1 mandatory on every compliant document, which is what allows one set of circuits to serve documents from different states; data groups an individual state defines for itself are handled as opt-in profiles on top.
 
@@ -8,11 +8,11 @@ The first target is ICAO Doc 9303 (Machine Readable Travel Documents): ePassport
 
 A document proves its way through a chain of small circuits: the country signing key certified the Document Signer, that signer signed the Security Object, the Security Object commits to a data group, that data group parses into committed fields, and statements are made about single fields without revealing the rest. Proofs are linked by equalities between their public values, and one verifier enforces that checklist so integrations do not carry their own copy.
 
-Seventeen circuits exist and run end to end against generated documents, including recursive aggregation: a registration proof that carries the whole document chain, and a session proof that carries a pair of predicates. A reference registry contract verifies both real proof kinds under test with measured gas. Verification fails when the session context, the application domain, an output or an inner proof is changed.
+Twenty three circuits exist across three machine readable zone layouts and six signature variants, including recursive aggregation: a registration proof that carries the whole document chain, and a session proof that carries a pair of predicates. A chip presence circuit proves the document's Active Authentication key answered this session's challenge, which is the one statement a copy of the data cannot make. A reference registry contract verifies real proofs under test and on a development chain with measured gas, and verification fails when the session context, the application domain, an output or an inner proof is changed.
 
 ## Status
 
-Early development. Names, layouts and binding formats can still change. Chip authentication is not implemented, so a cloned chip carrying genuine data is not detected; the coverage gaps are listed honestly in each repository rather than left to be discovered.
+Early development. Names, layouts and binding formats can still change. No genuine issued document has been proved end to end yet, and no third party audit has taken place; the coverage gaps are listed honestly in each repository rather than left to be discovered.
 
 | Repository | Contents |
 |---|---|
